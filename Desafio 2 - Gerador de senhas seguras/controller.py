@@ -1,23 +1,18 @@
 import random
 
-def gerarsenhas(caracteres: dict, comprimento: int, criterios: list) -> str:
-    ...
+def gerarsenhas(comprimento: int, caracteres: dict, criterios: list) -> str:
 
+    senha = []
+    for criterio in criterios:
+        create_caracteres = lambda: random.choice(caracteres[criterio])
+        senha += list(create_caracteres())
 
-caracteres = {
-        "maiúsculas": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        "minúsculas": "abcdefghijklmnopqrstuvwxyz",
-        "números": "1234567890",
-        "especiais": "!@#$^/*()_+-[]{}|;:,.<>?"
-    }
+    caracteres_possiveis = ""
+    for criterio in criterios:
+        caracteres_possiveis += random.choice(caracteres[criterio])
+    
+    senha += [random.choice(caracteres_possiveis) for _ in range(comprimento - len(senha))]
 
-senha = lambda: random.randint(1, 10)
+    random.shuffle(senha)
 
-senhas = [str(senha()) for _ in range(4)] 
-for _ in range(4):
-    senhas += str(senha())
-
-print(senhas)
-s = ''.join(senhas)
-print(s)    
-#print(random.shuffle(senhas))
+    return "".join(senha)
