@@ -1,7 +1,8 @@
 import random
 
 def gerarsenhas(comprimento: int, caracteres: dict, criterios: list) -> str:
-
+    if not criterios:
+        raise ValueError('Selecione ao menos um critério!')
     senha = []
     for criterio in criterios:
         create_caracteres = lambda: random.choice(caracteres[criterio])
